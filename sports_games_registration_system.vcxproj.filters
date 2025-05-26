@@ -21,6 +21,18 @@
     <ClCompile Include="auxiliaryfunction.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="event.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="student.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="registration.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="statistic.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="head.h">

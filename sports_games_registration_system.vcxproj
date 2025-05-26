@@ -125,9 +125,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="auxiliaryfunction.c" />
+    <ClCompile Include="event.c" />
     <ClCompile Include="main.c">
       <BufferSecurityCheck Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</BufferSecurityCheck>
     </ClCompile>
+    <ClCompile Include="registration.c" />
+    <ClCompile Include="statistic.c" />
+    <ClCompile Include="student.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="head.h" />
