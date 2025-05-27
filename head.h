@@ -110,3 +110,10 @@ void studentManagementMenu();//学生管理菜单
 void registrationManagementMenu();//报名菜单
 void statisticsMenu();//统计菜单
 void SetPosition(int x, int y);//光标定位
+
+#ifndef HEAD_H
+#define HEAD_H
+extern PRO pro[];
+extern STU stu[];
+extern ENR enr[];
+#endif
