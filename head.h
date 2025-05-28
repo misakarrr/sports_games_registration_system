@@ -70,8 +70,8 @@ typedef struct
 	char registration_student_id[REGISTRATION_STUDENT_ID];
 	char registration_event_id[REGISTRATION_EVENT_ID];
 	char registration_time[REGISTRATION_TIME];
-	int registration_grade;
-}ENR;
+	double registration_grade;
+}REG;
 
 //主要函数声明
 //运动项目管理功能
@@ -115,8 +115,8 @@ void SetPosition(int x, int y);//光标定位
 #define HEAD_H
 extern PRO pro[];
 extern STU stu[];
-extern ENR enr[];
+extern REG reg[];
 extern int pro_count;
 extern int stu_count;
-extern int enr_count;
+extern int reg_count;
 #endif
