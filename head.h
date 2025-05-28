@@ -116,4 +116,7 @@ void SetPosition(int x, int y);//光标定位
 extern PRO pro[];
 extern STU stu[];
 extern ENR enr[];
+extern int pro_count;
+extern int stu_count;
+extern int enr_count;
 #endif
