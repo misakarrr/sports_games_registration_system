@@ -42,7 +42,7 @@
 //运动项目结构体
 typedef struct
 {
-	char event_id[EVENT_ID];
+	int event_id[EVENT_ID];
 	char event_name[EVENT_NAME];
 	char event_kind[EVENT_KIND];
 	char event_type[EVENT_TYPE];
@@ -55,7 +55,7 @@ typedef struct
 //学生信息结构体
 typedef struct
 {
-	char student_id[STUDENT_ID];
+	int student_id[STUDENT_ID];
 	char student_name[STUDENT_NAME];
 	char student_sex[STUDENT_SEX];
 	char student_class[STUDENT_CLASS];
@@ -66,7 +66,7 @@ typedef struct
 //报名信息结构体
 typedef struct
 {
-	char registration_id[REGISTRATION_ID];
+	int registration_id[REGISTRATION_ID];
 	char registration_student_id[REGISTRATION_STUDENT_ID];
 	char registration_event_id[REGISTRATION_EVENT_ID];
 	time_t registration_time[REGISTRATION_TIME];
