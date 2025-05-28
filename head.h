@@ -46,7 +46,7 @@ typedef struct
 	char event_name[EVENT_NAME];
 	char event_kind[EVENT_KIND];
 	char event_type[EVENT_TYPE];
-	char event_time[EVENT_TIME];
+	time_t event_time[EVENT_TIME];
 	char event_venue[EVENT_VENUE];
 	char event_status[EVENT_STATUS];
 	int event_registration_num;
@@ -69,7 +69,7 @@ typedef struct
 	char registration_id[REGISTRATION_ID];
 	char registration_student_id[REGISTRATION_STUDENT_ID];
 	char registration_event_id[REGISTRATION_EVENT_ID];
-	char registration_time[REGISTRATION_TIME];
+	time_t registration_time[REGISTRATION_TIME];
 	double registration_grade;
 }REG;
 
