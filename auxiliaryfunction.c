@@ -266,29 +266,36 @@ void registrationManagementMenu()
         switch (choice)
         {
         case 1:
+            system("cls");
             printf("学生报名...\n");
             studentRegistration();
             break;
         case 2:
+			system("cls");
             printf("取消报名...\n");
-            // 实现代码
+            cancelRegistration();
             break;
         case 3:
+			system("cls");
             printf("显示所有报名信息...\n");
-            // 实现代码
+            displayAllRegistrationInformation();
             break;
         case 4:
+			system("cls");
             printf("查找报名信息...\n");
-            // 实现代码
+            searchForRegistrationInformation();
             break;
         case 5:
+			system("cls");
             printf("录入成绩...\n");
-            // 实现代码
+            enterGrades();
             break;
         case 6:
+			system("cls");
             printf("返回主菜单...\n");
             break;
         default:
+			system("cls");
             printf("无效选择，请重新输入！\n");
         }
     } while (choice != 6);
