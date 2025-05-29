@@ -267,7 +267,7 @@ void registrationManagementMenu()
         {
         case 1:
             printf("学生报名...\n");
-            // 实现代码
+            studentRegistration();
             break;
         case 2:
             printf("取消报名...\n");
