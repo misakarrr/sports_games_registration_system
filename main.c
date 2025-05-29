@@ -1,9 +1,9 @@
 #include "head.h"
 
-PRO pro[EVENT_NUM];
+EVE eve[EVENT_NUM];
 STU stu[STUDENT_NUM];
 REG reg[REGISTRATION_NUM];
-int pro_num = 0;
+int eve_num = 0;
 int reg_num = 0;
 int stu_num = 0;
 

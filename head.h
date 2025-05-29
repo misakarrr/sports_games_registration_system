@@ -50,7 +50,7 @@ typedef struct
 	char event_venue[EVENT_VENUE];
 	char event_status[EVENT_STATUS];
 	int event_registration_num;
-}PRO;
+}EVE;
 
 //学生信息结构体
 typedef struct
@@ -113,10 +113,10 @@ void SetPosition(int x, int y);//光标定位
 
 #ifndef HEAD_H
 #define HEAD_H
-extern PRO pro[];
+extern EVE eve[];
 extern STU stu[];
 extern REG reg[];
-extern int pro_count;
+extern int eve_count;
 extern int stu_count;
 extern int reg_count;
 #endif
