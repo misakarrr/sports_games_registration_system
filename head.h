@@ -42,11 +42,11 @@
 //运动项目结构体
 typedef struct
 {
-	int event_id[EVENT_ID];
+	int event_id;
 	char event_name[EVENT_NAME];
 	char event_kind[EVENT_KIND];
 	char event_type[EVENT_TYPE];
-	time_t event_time[EVENT_TIME];
+	time_t event_time;// 使用time_t类型存储时间
 	char event_venue[EVENT_VENUE];
 	char event_status[EVENT_STATUS];
 	int event_registration_num;
@@ -55,7 +55,7 @@ typedef struct
 //学生信息结构体
 typedef struct
 {
-	int student_id[STUDENT_ID];
+	int student_id;
 	char student_name[STUDENT_NAME];
 	char student_sex[STUDENT_SEX];
 	char student_class[STUDENT_CLASS];
@@ -66,10 +66,10 @@ typedef struct
 //报名信息结构体
 typedef struct
 {
-	int registration_id[REGISTRATION_ID];
-	char registration_student_id[REGISTRATION_STUDENT_ID];
-	char registration_event_id[REGISTRATION_EVENT_ID];
-	time_t registration_time[REGISTRATION_TIME];
+	int registration_id;
+	int registration_student_id;
+	int registration_event_id;
+	time_t registration_time;// 使用time_t类型存储时间
 	double registration_grade;
 }REG;
 
@@ -116,7 +116,7 @@ void SetPosition(int x, int y);//光标定位
 extern EVE eve[];
 extern STU stu[];
 extern REG reg[];
-extern int eve_count;
-extern int stu_count;
-extern int reg_count;
+extern int eve_num;
+extern int stu_num;
+extern int reg_num;
 #endif
