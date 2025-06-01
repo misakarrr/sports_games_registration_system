@@ -42,35 +42,35 @@
 //运动项目结构体
 typedef struct
 {
-	int event_id;
-	char event_name[EVENT_NAME];
-	char event_kind[EVENT_KIND];
-	char event_type[EVENT_TYPE];
+	int event_id;// 项目编号
+	char event_name[EVENT_NAME];// 项目名称(100 米、跳高、跳远等)
+	char event_kind[EVENT_KIND];// 项目类型(田赛、径赛等)
+	char event_type[EVENT_TYPE];// 参赛类型(男子项目、女子项目)
 	time_t event_time;// 使用time_t类型存储时间
-	char event_venue[EVENT_VENUE];
-	char event_status[EVENT_STATUS];
-	int event_registration_num;
+	char event_venue[EVENT_VENUE];// 比赛场地
+	char event_status[EVENT_STATUS];// 项目状态(报名中、已结束)
+	int event_registration_num;// 报名人数上限
 }EVE;
 
 //学生信息结构体
 typedef struct
 {
-	int student_id;
-	char student_name[STUDENT_NAME];
-	char student_sex[STUDENT_SEX];
-	char student_class[STUDENT_CLASS];
-	char student_college[STUDENT_COLLEGE];
-	char student_phone[STUDENT_PHONE];
+	int student_id;// 学生编号
+	char student_name[STUDENT_NAME];// 学生姓名
+	char student_sex[STUDENT_SEX];// 学生性别(男、女)
+	char student_class[STUDENT_CLASS];// 学生班级
+	char student_college[STUDENT_COLLEGE];// 学生学院
+	char student_phone[STUDENT_PHONE];// 学生电话
 }STU;
 
 //报名信息结构体
 typedef struct
 {
-	int registration_id;
-	int registration_student_id;
-	int registration_event_id;
+	int registration_id;// 报名编号
+	int registration_student_id;// 学生编号
+	int registration_event_id;// 运动项目编号
 	time_t registration_time;// 使用time_t类型存储时间
-	double registration_grade;
+	double registration_grade;// 成绩(可为空，比赛结束后录入)
 }REG;
 
 //主要函数声明
@@ -110,6 +110,9 @@ void studentManagementMenu();//学生管理菜单
 void registrationManagementMenu();//报名菜单
 void statisticsMenu();//统计菜单
 void SetPosition(int x, int y);//光标定位
+void readFromFileEvent();//从文件读入项目信息
+void readFromFileStudent();//从文件读入学生信息
+void readFromFileRegistration();//从文件读入报名信息
 
 #ifndef HEAD_H
 #define HEAD_H

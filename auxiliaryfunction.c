@@ -120,7 +120,8 @@ void displayMainMenu()
         printf("2. 学生信息管理\n");
         printf("3. 项目报名管理\n");
         printf("4. 统计查询\n");
-        printf("5. 退出系统\n");
+        printf("5. 从文件中读取信息\n");
+        printf("6. 退出系统\n");
         printf("请选择: ");
         scanf("%d", &choice);
 
@@ -139,12 +140,22 @@ void displayMainMenu()
             statisticsMenu();
             break;
         case 5:
+			system("cls");
+			printf("从文件中读取信息...\n");
+			// 读取项目信息、学生信息和报名信息
+			// 默认文件名为 event.txt, student.txt, registration.txt
+            getc(stdin); // 清除缓冲区中的换行符
+            readFromFileEvent();
+			readFromFileStudent();
+			readFromFileRegistration();
+            break;
+        case 6:
             printf("感谢使用运动会报名系统！\n");
             break;
         default:
             printf("无效选择，请重新输入！\n");
         }
-    } while (choice != 5);
+    } while (choice != 6);
 }
 
 // 运动项目管理菜单
@@ -350,3 +361,137 @@ void statisticsMenu()
     } while (choice != 6);
 }
 
+// 读取项目信息
+void readFromFileEvent()
+{
+    char filename[256];
+    FILE *fp;
+    int count = 0;
+    EVE temp;
+
+    printf("请输入要读取的项目信息文件名（默认 event.txt）：");
+    fgets(filename, sizeof(filename), stdin);
+    // 去除换行符
+    size_t len = strlen(filename);
+    if (len > 0 && filename[len - 1] == '\n') 
+    {
+        filename[len - 1] = '\0';
+    }
+    // 如果未输入内容，使用默认文件名
+    if (filename[0] == '\0') 
+    {
+        strcpy(filename, "event.txt");
+    }
+
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        printf("未找到项目信息文件，无法读取！\n");
+        return;
+    }
+
+    while (fscanf(fp, "%d %s %s %s %lld %s %s %d",
+                  &temp.event_id,
+                  temp.event_name,
+                  temp.event_kind,
+                  temp.event_type,
+                  (long long*)&temp.event_time,
+                  temp.event_venue,
+                  temp.event_status,
+                  &temp.event_registration_num) == 8)
+    {
+        eve[count++] = temp;
+        if (count >= 100) break;
+    }
+    eve_num = count;
+    fclose(fp);
+
+    printf("成功读取%d条项目信息。\n", count);
+}
+
+// 读取学生信息
+void readFromFileStudent()
+{
+    char filename[256];
+    FILE *fp;
+    int count = 0;
+    STU temp;
+
+    printf("请输入要读取的项目信息文件名（默认 student.txt）：");
+    fgets(filename, sizeof(filename), stdin);
+    // 去除换行符
+    size_t len = strlen(filename);
+    if (len > 0 && filename[len - 1] == '\n')
+    {
+        filename[len - 1] = '\0';
+    }
+    // 如果未输入内容，使用默认文件名
+    if (filename[0] == '\0')
+    {
+        strcpy(filename, "student.txt");
+    }
+
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        printf("未找到学生信息文件，无法读取！\n");
+        return;
+    }
+    while (fscanf(fp, "%d %s %s %s %s %s",
+                  &temp.student_id,
+                  temp.student_name,
+                  temp.student_sex,
+                  temp.student_class,
+                  temp.student_college,
+                  temp.student_phone) == 6)
+    {
+        stu[count++] = temp;
+        if (count >= 100) break;
+    }
+    stu_num = count;
+    fclose(fp);
+    printf("成功读取%d条学生信息。\n", count);
+}
+
+// 读取报名信息
+void readFromFileRegistration()
+{
+    char filename[256];
+    FILE *fp;
+    int count = 0;
+    REG temp;
+
+    printf("请输入要读取的项目信息文件名（默认 registration.txt）：");
+    fgets(filename, sizeof(filename), stdin);
+    // 去除换行符
+    size_t len = strlen(filename);
+    if (len > 0 && filename[len - 1] == '\n')
+    {
+        filename[len - 1] = '\0';
+    }
+    // 如果未输入内容，使用默认文件名
+    if (filename[0] == '\0')
+    {
+        strcpy(filename, "registration.txt");
+    }
+
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        printf("未找到报名信息文件，无法读取！\n");
+        return;
+    }
+    while (fscanf(fp, "%d %d %d %lld %lf",
+                  &temp.registration_id,
+                  &temp.registration_student_id,
+                  &temp.registration_event_id,
+                  (long long*)&temp.registration_time,
+                  &temp.registration_grade) == 5)
+    {
+        reg[count++] = temp;
+        if (count >= 100) break;
+    }
+    reg_num = count;
+    fclose(fp);
+    printf("成功读取%d条报名信息。\n", count);
+}

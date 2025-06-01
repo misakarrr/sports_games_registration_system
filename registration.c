@@ -31,6 +31,19 @@ void print_registration(REG* r)
 {
     int sinx = find_student(r->registration_student_id);
     int einx = find_event(r->registration_event_id);
+
+    // 有效性检查
+    if (sinx == -1) 
+    {
+        printf("未找到该学生信息，报名编号:%d\n", r->registration_id);
+        return;
+    }
+    if (einx == -1) 
+    {
+        printf("未找到该项目，报名编号:%d\n", r->registration_id);
+        return;
+    }
+
     char tm[30];
     strftime(tm, sizeof(tm), "%Y-%m-%d %H:%M:%S", localtime(&r->registration_time));
     printf("报名编号:%d 学号:%d 姓名:%s 项目编号:%d 项目:%s 报名时间:%s 成绩:",
@@ -90,7 +103,6 @@ void studentRegistration()
     printf("报名成功!\n");
 }
 
-//取消报名函数
 // 取消报名函数：可通过报名编号或学号删除报名信息
 void cancelRegistration()
 {
