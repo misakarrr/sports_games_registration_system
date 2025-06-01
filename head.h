@@ -3,34 +3,26 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <string.h>
+#include <time.h>
 
 #define EVENT_NUM 50
 #define STUDENT_NUM 500
 #define REGISTRATION_NUM 500
 
 //运动项目宏定义
-#define EVENT_ID 20
 #define EVENT_NAME 20
 #define EVENT_KIND 10
-#define EVENT_TYPE 5
-#define EVENT_TIME 20
-#define EVENT_VENUE 50
-#define EVENT_STATUS 5
+#define EVENT_TYPE 10
+#define EVENT_VENUE 10
+#define EVENT_STATUS 10
 #define EVENT_REGISTRATION_NUM 50
 
 //学生信息宏定义
-#define STUDENT_ID 20
 #define STUDENT_NAME 10
 #define STUDENT_SEX 3
 #define STUDENT_CLASS 10
 #define STUDENT_COLLEGE 20
 #define STUDENT_PHONE 20
-
-//报名信息宏定义
-#define REGISTRATION_ID 20
-#define REGISTRATION_STUDENT_ID 20
-#define REGISTRATION_EVENT_ID 20
-#define REGISTRATION_TIME 10
 
 //菜单宏定义
 #define POS_X1 45

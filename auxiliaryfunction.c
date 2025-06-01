@@ -145,7 +145,7 @@ void displayMainMenu()
 			// 读取项目信息、学生信息和报名信息
 			// 默认文件名为 event.txt, student.txt, registration.txt
             getc(stdin); // 清除缓冲区中的换行符
-            readFromFileEvent();
+            //readFromFileEvent();
 			readFromFileStudent();
 			readFromFileRegistration();
             break;
@@ -361,53 +361,49 @@ void statisticsMenu()
     } while (choice != 6);
 }
 
-// 读取项目信息
-void readFromFileEvent()
-{
-    char filename[256];
-    FILE *fp;
-    int count = 0;
-    EVE temp;
-
-    printf("请输入要读取的项目信息文件名（默认 event.txt）：");
-    fgets(filename, sizeof(filename), stdin);
-    // 去除换行符
-    size_t len = strlen(filename);
-    if (len > 0 && filename[len - 1] == '\n') 
-    {
-        filename[len - 1] = '\0';
-    }
-    // 如果未输入内容，使用默认文件名
-    if (filename[0] == '\0') 
-    {
-        strcpy(filename, "event.txt");
-    }
-
-    fp = fopen(filename, "r");
-    if (fp == NULL)
-    {
-        printf("未找到项目信息文件，无法读取！\n");
-        return;
-    }
-
-    while (fscanf(fp, "%d %s %s %s %lld %s %s %d",
-                  &temp.event_id,
-                  temp.event_name,
-                  temp.event_kind,
-                  temp.event_type,
-                  (long long*)&temp.event_time,
-                  temp.event_venue,
-                  temp.event_status,
-                  &temp.event_registration_num) == 8)
-    {
-        eve[count++] = temp;
-        if (count >= 100) break;
-    }
-    eve_num = count;
-    fclose(fp);
-
-    printf("成功读取%d条项目信息。\n", count);
-}
+// 从文件中读取运动项目信息
+//void readFromFileEvent()
+//{
+//    char filename[256];
+//    FILE *fp;
+//    int count = 0;
+//    EVE temp;
+//    printf("请输入要读取的运动项目信息文件名（默认 event.txt）：");
+//    fgets(filename, sizeof(filename), stdin);
+//    // 去除换行符
+//    size_t len = strlen(filename);
+//    if (len > 0 && filename[len - 1] == '\n')
+//    {
+//        filename[len - 1] = '\0';
+//    }
+//    // 如果未输入内容，使用默认文件名
+//    if (filename[0] == '\0')
+//    {
+//        strcpy(filename, "event.txt");
+//    }
+//    fp = fopen(filename, "r");
+//    if (fp == NULL)
+//    {
+//        printf("未找到运动项目信息文件，无法读取！\n");
+//        return;
+//    }
+//    while (fscanf(fp, "%d %s %s %s %lld %s %s %d",
+//                  &temp.event_id,
+//                  temp.event_name,
+//                  temp.event_kind,
+//                  temp.event_type,
+//		          (long long*)&temp.event_time,
+//		          temp.event_venue,
+//		          temp.event_status,
+//                  &temp.event_registration_num) == 8)
+//    {
+//        eve[count++] = temp;
+//        if (count >= EVENT_NUM) break;
+//    }
+//    eve_num = count;
+//    fclose(fp);
+//    printf("成功读取%d条运动项目信息。\n", count);
+//}
 
 // 读取学生信息
 void readFromFileStudent()
@@ -417,7 +413,7 @@ void readFromFileStudent()
     int count = 0;
     STU temp;
 
-    printf("请输入要读取的项目信息文件名（默认 student.txt）：");
+    printf("请输入要读取的学生信息文件名（默认 student.txt）：");
     fgets(filename, sizeof(filename), stdin);
     // 去除换行符
     size_t len = strlen(filename);
@@ -446,7 +442,7 @@ void readFromFileStudent()
                   temp.student_phone) == 6)
     {
         stu[count++] = temp;
-        if (count >= 100) break;
+        if (count >= STUDENT_NUM) break;
     }
     stu_num = count;
     fclose(fp);
@@ -461,7 +457,7 @@ void readFromFileRegistration()
     int count = 0;
     REG temp;
 
-    printf("请输入要读取的项目信息文件名（默认 registration.txt）：");
+    printf("请输入要读取的报名信息文件名（默认 registration.txt）：");
     fgets(filename, sizeof(filename), stdin);
     // 去除换行符
     size_t len = strlen(filename);
@@ -489,7 +485,7 @@ void readFromFileRegistration()
                   &temp.registration_grade) == 5)
     {
         reg[count++] = temp;
-        if (count >= 100) break;
+        if (count >= REGISTRATION_NUM) break;
     }
     reg_num = count;
     fclose(fp);

@@ -38,11 +38,11 @@ void print_registration(REG* r)
         printf("未找到该学生信息，报名编号:%d\n", r->registration_id);
         return;
     }
-    if (einx == -1) 
+    /*if (einx == -1) 
     {
         printf("未找到该项目，报名编号:%d\n", r->registration_id);
         return;
-    }
+    }*/
 
     char tm[30];
     strftime(tm, sizeof(tm), "%Y-%m-%d %H:%M:%S", localtime(&r->registration_time));
@@ -166,7 +166,7 @@ void cancelRegistration()
         while (1)
         {
             int del_id;
-            printf("请输入要取消的报名编号(输入0结束): ");
+            printf("请输入要取消的报名编号(输入 0 结束): ");
             scanf("%d", &del_id);
             if (del_id == 0)
                 break;
@@ -273,9 +273,10 @@ void searchForRegistrationInformation()
 void enterGrades()
 {
     int reg_id;
+    int i;
     printf("请输入报名编号: ");
     scanf("%d", &reg_id);
-    for (int i = 0; i < reg_num; i++)
+    for (i = 0; i < reg_num; i++)
     {
         if (reg[i].registration_id == reg_id)
         {
@@ -285,9 +286,16 @@ void enterGrades()
                 return;
             }
             printf("请输入成绩: ");
-            scanf("%f", &reg[i].registration_grade);
-            printf("成绩录入成功!\n");
-            return;
+            if (scanf("%lf", &reg[i].registration_grade))
+            {
+                printf("成绩录入成功!\n");
+                return;
+            }
+            else
+            {
+                printf("成绩录入失败!\n");
+                return;
+            }
         }
     }
 	printf("未找到该报名编号的信息!\n");
