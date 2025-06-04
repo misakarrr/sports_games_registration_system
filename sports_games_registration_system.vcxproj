@@ -139,6 +139,7 @@
   <ItemGroup>
     <Text Include="event.txt" />
     <Text Include="registration.txt" />
+    <Text Include="statistic.txt" />
     <Text Include="student.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

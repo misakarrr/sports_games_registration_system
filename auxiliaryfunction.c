@@ -333,24 +333,29 @@ void statisticsMenu()
         switch (choice)
         {
         case 1:
+            system("cls");
             printf("统计每个项目的报名人数...\n");
-            // 实现代码
+            countTheNumberOfApplicantsForEachProject();
             break;
         case 2:
+			system("cls");
             printf("统计每个学院的报名人数...\n");
-            // 实现代码
+            countTheNumberOfApplicantsForEachCollege();
             break;
         case 3:
+			system("cls");
             printf("统计每个学生的报名项目数...\n");
-            // 实现代码
+            countTheNumberOfRegisteredProjectsForEachStudent();
             break;
         case 4:
+			system("cls");
             printf("查询比赛成绩...\n");
-            // 实现代码
+            queryCompetitionResults();
             break;
         case 5:
+			system("cls");
             printf("保存统计信息到文件...\n");
-            // 实现代码
+            saveStatisticalInformationToAFile();
             break;
         case 6:
             printf("返回主菜单...\n");

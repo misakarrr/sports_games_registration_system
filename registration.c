@@ -285,6 +285,7 @@ void enterGrades()
                 printf("该报名信息已录入成绩!\n");
                 return;
             }
+            print_registration(&reg[i]);
             printf("请输入成绩: ");
             if (scanf("%lf", &reg[i].registration_grade))
             {

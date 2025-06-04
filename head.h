@@ -102,7 +102,7 @@ void studentManagementMenu();//学生管理菜单
 void registrationManagementMenu();//报名菜单
 void statisticsMenu();//统计菜单
 void SetPosition(int x, int y);//光标定位
-void readFromFileEvent();//从文件读入项目信息
+//void readFromFileEvent();//从文件读入项目信息
 void readFromFileStudent();//从文件读入学生信息
 void readFromFileRegistration();//从文件读入报名信息
 
