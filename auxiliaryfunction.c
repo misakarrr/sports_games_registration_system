@@ -179,24 +179,29 @@ void eventManagementMenu()
         switch (choice)
         {
         case 1:
+            system("cls");
             printf("显示所有运动项目信息...\n");
-            // 实现代码
+            displayAllSportsEventInformation();
             break;
         case 2:
+			system("cls");
             printf("添加运动项目信息...\n");
-            // 实现代码
+            addSportsEventInformation();
             break;
         case 3:
+			system("cls");
             printf("删除运动项目信息...\n");
-            // 实现代码
+            deleteSportsEventInformation();
             break;
         case 4:
+			system("cls");
             printf("修改运动项目信息...\n");
-            // 实现代码
+            modifySportsEventInformation();
             break;
         case 5:
+			system("cls");
             printf("查找运动项目信息...\n");
-            // 实现代码
+            searchForSportsEventInformation();
             break;
         case 6:
             printf("返回主菜单...\n");
@@ -228,24 +233,29 @@ void studentManagementMenu()
         switch (choice)
         {
         case 1:
+			system("cls");
             printf("显示所有学生信息...\n");
-            // 实现代码
+            displayAllStudentInformation();
             break;
         case 2:
+			system("cls");
             printf("添加学生信息...\n");
-            // 实现代码
+            addStudentInformation();
             break;
         case 3:
+			system("cls");
             printf("删除学生信息...\n");
-            // 实现代码
+            deleteStudentInformation();
             break;
         case 4:
+			system("cls");
             printf("修改学生信息...\n");
-            // 实现代码
+            modifyStudentInformation();
             break;
         case 5:
+			system("cls");
             printf("查找学生信息...\n");
-            // 实现代码
+            searchForStudentInformation();
             break;
         case 6:
             printf("返回主菜单...\n");
@@ -495,4 +505,32 @@ void readFromFileRegistration()
     reg_num = count;
     fclose(fp);
     printf("成功读取%d条报名信息。\n", count);
+}
+
+int get_display_width(const char* s) 
+{
+    int width = 0;
+    while (*s)
+    {
+        // 判断是否为UTF-8中文（首字节>=0x80）
+        if ((unsigned char)*s >= 0x80)
+        {
+            width += 2;
+            s += 3; // 跳过3字节
+        }
+        else 
+        {
+            width += 1;
+            s++;
+        }
+    }
+    return width;
+}
+
+void print_align(const char* s, int total_width)
+{
+    int w = get_display_width(s);
+    printf("%s", s);
+    for (int i = 0; i < total_width - w; i++)
+        putchar(' ');
 }

@@ -105,6 +105,8 @@ void SetPosition(int x, int y);//光标定位
 //void readFromFileEvent();//从文件读入项目信息
 void readFromFileStudent();//从文件读入学生信息
 void readFromFileRegistration();//从文件读入报名信息
+int get_display_width(const char* s);
+void print_align(const char* s, int total_width);
 
 #ifndef HEAD_H
 #define HEAD_H
