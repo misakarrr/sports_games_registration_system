@@ -1,5 +1,36 @@
 #include "head.h"
 
+//自动对齐打印字符串，考虑UTF-8中文字符的宽度
+// 获取字符串的显示宽度（考虑UTF-8中文字符）
+int get_display_width(const char* s)
+{
+    int width = 0;
+    while (*s)
+    {
+        // 判断是否为UTF-8中文（首字节>=0x80）
+        if ((unsigned char)*s >= 0x80)
+        {
+            width += 2;
+            s += 3; // 跳过3字节
+        }
+        else
+        {
+            width += 1;
+            s++;
+        }
+    }
+    return width;
+}
+
+// 打印对齐的字符串，填充空格到指定宽度
+void print_align(const char* s, int total_width)
+{
+    int w = get_display_width(s);
+    printf("%s", s);
+    for (int i = 0; i < total_width - w; i++)
+        putchar(' ');
+}
+
 //光标定位函数
 void SetPosition(int x, int y)
 {
@@ -75,12 +106,14 @@ void SetPosition(int x, int y)
 //	return option;
 //}
 
-// 模拟登录函数
+// 模拟登录函数（从login.txt读取用户名和密码进行比对）
 void login() 
 {
     char username[20];
     char password[20];
     int attempts = 3;
+    char file_username[20], file_password[20];
+    int found = 0;
 
     while (attempts > 0)
     {
@@ -90,14 +123,29 @@ void login()
         printf("密码: ");
         scanf("%s", password);
 
-        // 简单验证，实际应用中应与存储的用户信息比对
-        if (strcmp(username, "admin") == 0 && strcmp(password, "admin") == 0)
+        FILE *fp = fopen("login.txt", "r");
+        if (fp == NULL) 
+        {
+            printf("无法打开login.txt文件，无法登录！\n");
+            return;
+        }
+        found = 0;
+        while (fscanf(fp, "%s %s", file_username, file_password) == 2) 
+        {
+            if (strcmp(username, file_username) == 0 && strcmp(password, file_password) == 0) 
+            {
+                found = 1;
+                break;
+            }
+        }
+        fclose(fp);
+
+        if (found) 
         {
             printf("登录成功！\n");
             displayMainMenu();
             return;
-        }
-        else
+        } else 
         {
             attempts--;
             printf("用户名或密码错误！剩余尝试次数: %d\n", attempts);
@@ -121,7 +169,8 @@ void displayMainMenu()
         printf("3. 项目报名管理\n");
         printf("4. 统计查询\n");
         printf("5. 从文件中读取信息\n");
-        printf("6. 退出系统\n");
+		printf("6. 保存信息到文件\n");
+        printf("7. 退出系统\n");
         printf("请选择: ");
         scanf("%d", &choice);
 
@@ -145,17 +194,27 @@ void displayMainMenu()
 			// 读取项目信息、学生信息和报名信息
 			// 默认文件名为 event.txt, student.txt, registration.txt
             getc(stdin); // 清除缓冲区中的换行符
-            //readFromFileEvent();
+            readFromFileEvent();
 			readFromFileStudent();
 			readFromFileRegistration();
             break;
         case 6:
+            system("cls");
+			printf("保存信息到文件\n");
+			// 保存项目信息、学生信息和报名信息到文件
+			// 默认文件名为 event.txt, student.txt, registration.txt
+            getc(stdin); // 清除缓冲区中的换行符
+			saveToFileEvent();
+            saveToFileStudent();
+			saveToFileRegistration();
+            break;
+        case 7:
             printf("感谢使用运动会报名系统！\n");
             break;
         default:
             printf("无效选择，请重新输入！\n");
         }
-    } while (choice != 6);
+    } while (choice != 7);
 }
 
 // 运动项目管理菜单
@@ -376,49 +435,49 @@ void statisticsMenu()
     } while (choice != 6);
 }
 
-// 从文件中读取运动项目信息
-//void readFromFileEvent()
-//{
-//    char filename[256];
-//    FILE *fp;
-//    int count = 0;
-//    EVE temp;
-//    printf("请输入要读取的运动项目信息文件名（默认 event.txt）：");
-//    fgets(filename, sizeof(filename), stdin);
-//    // 去除换行符
-//    size_t len = strlen(filename);
-//    if (len > 0 && filename[len - 1] == '\n')
-//    {
-//        filename[len - 1] = '\0';
-//    }
-//    // 如果未输入内容，使用默认文件名
-//    if (filename[0] == '\0')
-//    {
-//        strcpy(filename, "event.txt");
-//    }
-//    fp = fopen(filename, "r");
-//    if (fp == NULL)
-//    {
-//        printf("未找到运动项目信息文件，无法读取！\n");
-//        return;
-//    }
-//    while (fscanf(fp, "%d %s %s %s %lld %s %s %d",
-//                  &temp.event_id,
-//                  temp.event_name,
-//                  temp.event_kind,
-//                  temp.event_type,
-//		          (long long*)&temp.event_time,
-//		          temp.event_venue,
-//		          temp.event_status,
-//                  &temp.event_registration_num) == 8)
-//    {
-//        eve[count++] = temp;
-//        if (count >= EVENT_NUM) break;
-//    }
-//    eve_num = count;
-//    fclose(fp);
-//    printf("成功读取%d条运动项目信息。\n", count);
-//}
+// 读取运动项目信息
+void readFromFileEvent()
+{
+    char filename[256];
+    FILE *fp;
+    int count = 0;
+    EVE temp;
+    printf("请输入要读取的运动项目信息文件名（默认 event.txt）：");
+    fgets(filename, sizeof(filename), stdin);
+    // 去除换行符
+    size_t len = strlen(filename);
+    if (len > 0 && filename[len - 1] == '\n')
+    {
+        filename[len - 1] = '\0';
+    }
+    // 如果未输入内容，使用默认文件名
+    if (filename[0] == '\0')
+    {
+        strcpy(filename, "event.txt");
+    }
+    fp = fopen(filename, "r");
+    if (fp == NULL)
+    {
+        printf("未找到运动项目信息文件，无法读取！\n");
+        return;
+    }
+    while (fscanf(fp, "%d %s %s %s %lld %s %s %d",
+                  &temp.event_id,
+                  temp.event_name,
+                  temp.event_kind,
+                  temp.event_type,
+		          (long long*)&temp.event_time,
+		          temp.event_venue,
+		          temp.event_status,
+                  &temp.event_registration_num) == 8)
+    {
+        eve[count++] = temp;
+        if (count >= EVENT_NUM) break;
+    }
+    eve_num = count;
+    fclose(fp);
+    printf("成功读取%d条运动项目信息。\n", count);
+}
 
 // 读取学生信息
 void readFromFileStudent()
@@ -507,30 +566,127 @@ void readFromFileRegistration()
     printf("成功读取%d条报名信息。\n", count);
 }
 
-int get_display_width(const char* s) 
+// 保存运动项目信息到文件
+void saveToFileEvent()
 {
-    int width = 0;
-    while (*s)
+    char filename[256];
+    FILE *fp;
+    printf("请输入要保存的运动项目信息文件名（默认 event.txt）：");
+    fgets(filename, sizeof(filename), stdin);
+    // 去除换行符
+    size_t len = strlen(filename);
+    if (len > 0 && filename[len - 1] == '\n')
     {
-        // 判断是否为UTF-8中文（首字节>=0x80）
-        if ((unsigned char)*s >= 0x80)
-        {
-            width += 2;
-            s += 3; // 跳过3字节
-        }
-        else 
-        {
-            width += 1;
-            s++;
-        }
+        filename[len - 1] = '\0';
     }
-    return width;
+    // 如果未输入内容，使用默认文件名
+    if (filename[0] == '\0')
+    {
+        strcpy(filename, "event.txt");
+    }
+    
+    fp = fopen(filename, "w");
+    if (fp == NULL)
+    {
+        printf("无法打开文件 %s 进行写入！\n", filename);
+        return;
+    }
+    
+    for (int i = 0; i < eve_num; i++)
+    {
+        fprintf(fp, "%d %s %s %s %lld %s %s %d\n",
+                eve[i].event_id,
+                eve[i].event_name,
+                eve[i].event_kind,
+                eve[i].event_type,
+                (long long)eve[i].event_time,
+                eve[i].event_venue,
+                eve[i].event_status,
+                eve[i].event_registration_num);
+    }
+    
+    fclose(fp);
+    printf("成功保存%d条运动项目信息到文件 %s。\n", eve_num, filename);
 }
 
-void print_align(const char* s, int total_width)
+// 保存学生信息到文件
+void saveToFileStudent()
 {
-    int w = get_display_width(s);
-    printf("%s", s);
-    for (int i = 0; i < total_width - w; i++)
-        putchar(' ');
+    char filename[256];
+    FILE *fp;
+    printf("请输入要保存的学生信息文件名（默认 student.txt）：");
+    fgets(filename, sizeof(filename), stdin);
+    // 去除换行符
+    size_t len = strlen(filename);
+    if (len > 0 && filename[len - 1] == '\n')
+    {
+        filename[len - 1] = '\0';
+    }
+    // 如果未输入内容，使用默认文件名
+    if (filename[0] == '\0')
+    {
+        strcpy(filename, "student.txt");
+    }
+    
+    fp = fopen(filename, "w");
+    if (fp == NULL)
+    {
+        printf("无法打开文件 %s 进行写入！\n", filename);
+        return;
+    }
+    
+    for (int i = 0; i < stu_num; i++)
+    {
+        fprintf(fp, "%d %s %s %s %s %s\n",
+                stu[i].student_id,
+                stu[i].student_name,
+                stu[i].student_sex,
+                stu[i].student_class,
+                stu[i].student_college,
+                stu[i].student_phone);
+    }
+    
+    fclose(fp);
+    printf("成功保存%d条学生信息到文件 %s。\n", stu_num, filename);
 }
+
+// 保存报名信息到文件
+void saveToFileRegistration()
+{
+    char filename[256];
+    FILE *fp;
+    printf("请输入要保存的报名信息文件名（默认 registration.txt）：");
+    fgets(filename, sizeof(filename), stdin);
+    // 去除换行符
+    size_t len = strlen(filename);
+    if (len > 0 && filename[len - 1] == '\n')
+    {
+        filename[len - 1] = '\0';
+    }
+    // 如果未输入内容，使用默认文件名
+    if (filename[0] == '\0')
+    {
+        strcpy(filename, "registration.txt");
+    }
+    
+    fp = fopen(filename, "w");
+    if (fp == NULL)
+    {
+        printf("无法打开文件 %s 进行写入！\n", filename);
+        return;
+    }
+    
+    for (int i = 0; i < reg_num; i++)
+    {
+        fprintf(fp, "%d %d %d %lld %.2f\n",
+                reg[i].registration_id,
+                reg[i].registration_student_id,
+                reg[i].registration_event_id,
+                (long long)reg[i].registration_time,
+                reg[i].registration_grade);
+    }
+    
+    fclose(fp);
+    printf("成功保存%d条报名信息到文件 %s。\n", reg_num, filename);
+}
+			

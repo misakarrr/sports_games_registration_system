@@ -27,13 +27,13 @@ void displayAllSportsEventInformation()
 {
     printf("所有运动项目信息：\n");
     print_align("编号", 8);
-    print_align("名称", 16);
-    print_align("类型", 12);
-    print_align("参赛类型", 16);
+    print_align("名称", 8);        
+    print_align("类型", 10);
+    print_align("参赛类型", 12);
     print_align("时间", 18);
-    print_align("场地", 12);
-    print_align("状态", 10);
-    print_align("人数上限", 10);
+    print_align("场地", 10);
+    print_align("状态", 8);
+    print_align("人数上限", 8);
     printf("\n");
 
     for (int i = 0; i < eve_num; i++)
@@ -45,15 +45,15 @@ void displayAllSportsEventInformation()
         snprintf(num_buf, sizeof(num_buf), "%d", eve[i].event_id);
         print_align(num_buf, 8);
 
-        print_align(eve[i].event_name, 16);
-        print_align(eve[i].event_kind, 12);
-        print_align(eve[i].event_type, 16);
+        print_align(eve[i].event_name, 20);   
+        print_align(eve[i].event_kind, 18);
+        print_align(eve[i].event_type, 18);
         print_align(time_str, 18);
         print_align(eve[i].event_venue, 10);
-        print_align(eve[i].event_status, 10);
+        print_align(eve[i].event_status, 8);
 
         snprintf(num_buf, sizeof(num_buf), "%d", eve[i].event_registration_num);
-        print_align(num_buf, 10);
+        print_align(num_buf, 8);
 
         printf("\n");
     }
@@ -77,10 +77,10 @@ void addSportsEventInformation()
     printf("项目名称: ");
     scanf("%19s", newEvent.event_name);
 
-    printf("项目类型: ");
+    printf("项目类型（田赛，径赛等）: ");
     scanf("%9s", newEvent.event_kind);
 
-    printf("参赛类型: ");
+    printf("参赛类型（男子项目，女子项目）: ");
     scanf("%9s", newEvent.event_type);
 
     printf("比赛时间(YYYY-MM-DD HH:MM): ");
@@ -95,7 +95,7 @@ void addSportsEventInformation()
     printf("比赛场地: ");
     scanf("%9s", newEvent.event_venue);
 
-    printf("项目状态: ");
+    printf("项目状态（报名中，已结束）: ");
     scanf("%9s", newEvent.event_status);
 
     printf("人数上限: ");

@@ -5,31 +5,31 @@
 #include <string.h>
 #include <time.h>
 
-#define EVENT_NUM 50
-#define STUDENT_NUM 500
-#define REGISTRATION_NUM 500
+#define EVENT_NUM 50 //运动项目数量宏定义
+#define STUDENT_NUM 500 //学生数量宏定义
+#define REGISTRATION_NUM 500 //报名数量宏定义
 
 //运动项目宏定义
-#define EVENT_NAME 20
-#define EVENT_KIND 10
-#define EVENT_TYPE 10
-#define EVENT_VENUE 10
-#define EVENT_STATUS 10
-#define EVENT_REGISTRATION_NUM 50
+#define EVENT_NAME 20 // 项目名称宏定义(100 米、跳高、跳远等)
+#define EVENT_KIND 10 // 项目类型宏定义(田赛、径赛等)
+#define EVENT_TYPE 10 // 参赛类型宏定义(男子项目、女子项目)
+#define EVENT_VENUE 10 // 比赛场地宏定义
+#define EVENT_STATUS 10 // 项目状态宏定义(报名中、已结束)
+#define EVENT_REGISTRATION_NUM 50 // 报名人数上限宏定义
 
 //学生信息宏定义
-#define STUDENT_NAME 10
-#define STUDENT_SEX 3
-#define STUDENT_CLASS 10
-#define STUDENT_COLLEGE 20
-#define STUDENT_PHONE 20
+#define STUDENT_NAME 10 // 学生姓名宏定义
+#define STUDENT_SEX 3 // 学生性别宏定义(男、女)
+#define STUDENT_CLASS 10 // 学生班级宏定义
+#define STUDENT_COLLEGE 20 // 学生学院宏定义
+#define STUDENT_PHONE 20 // 学生电话宏定义
 
-//菜单宏定义
-#define POS_X1 45
-#define POS_X2 40
-#define POS_X3 60
-#define POS_X4 65
-#define POS_Y 3
+////菜单宏定义
+//#define POS_X1 45
+//#define POS_X2 40
+//#define POS_X3 60
+//#define POS_X4 65
+//#define POS_Y 3
 
 //运动项目结构体
 typedef struct
@@ -96,17 +96,24 @@ void saveStatisticalInformationToAFile();//保存统计信息到文件
 
 //辅助功能
 void login();//登录系统
+void SetPosition(int x, int y);//光标定位
+int get_display_width(const char* s);// 获取字符串的显示宽度（考虑UTF-8中文字符）
+void print_align(const char* s, int total_width);// 打印对齐字符串
+
+//菜单功能
 void displayMainMenu();//显示主菜单
 void eventManagementMenu();//运动项目菜单
 void studentManagementMenu();//学生管理菜单
 void registrationManagementMenu();//报名菜单
 void statisticsMenu();//统计菜单
-void SetPosition(int x, int y);//光标定位
-//void readFromFileEvent();//从文件读入项目信息
+
+// 文件操作功能
+void readFromFileEvent();//从文件读入项目信息
 void readFromFileStudent();//从文件读入学生信息
 void readFromFileRegistration();//从文件读入报名信息
-int get_display_width(const char* s);
-void print_align(const char* s, int total_width);
+void saveToFileEvent();//保存运动项目信息到文件
+void saveToFileStudent();//保存学生信息到文件
+void saveToFileRegistration();//保存报名信息到文件
 
 #ifndef HEAD_H
 #define HEAD_H

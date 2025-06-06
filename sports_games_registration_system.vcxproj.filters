@@ -40,9 +40,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="event.txt">
-      <Filter>资源文件</Filter>
-    </Text>
     <Text Include="student.txt">
       <Filter>资源文件</Filter>
     </Text>
@@ -50,6 +47,12 @@
       <Filter>资源文件</Filter>
     </Text>
     <Text Include="statistic.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="event.txt">
+      <Filter>资源文件</Filter>
+    </Text>
+    <Text Include="login.txt">
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>
