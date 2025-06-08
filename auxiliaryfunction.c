@@ -32,16 +32,16 @@ void print_align(const char* s, int total_width)
 }
 
 //光标定位函数
-void SetPosition(int x, int y)
-{
-	HANDLE hOut;
-	COORD pos;
-
-	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	pos.X = x;
-	pos.Y = y;
-	SetConsoleCursorPosition(hOut, pos);
-}
+////void SetPosition(int x, int y)
+//{
+//	HANDLE hOut;
+//	COORD pos;
+//
+//	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+//	pos.X = x;
+//	pos.Y = y;
+//	SetConsoleCursorPosition(hOut, pos);
+//}
 
 //int Menu(void)
 //{
@@ -106,7 +106,7 @@ void SetPosition(int x, int y)
 //	return option;
 //}
 
-// 模拟登录函数（从login.txt读取用户名和密码进行比对）
+// 模拟登录和注册函数
 void login() 
 {
     char username[20];
@@ -114,45 +114,106 @@ void login()
     int attempts = 3;
     char file_username[20], file_password[20];
     int found = 0;
+    int choice;
 
-    while (attempts > 0)
+    while (1)
     {
         printf("\n=== 登录系统 ===\n");
-        printf("用户名: ");
-        scanf("%s", username);
-        printf("密码: ");
-        scanf("%s", password);
+        printf("1. 登录\n");
+        printf("2. 注册\n");
+        printf("请选择操作：");
+        scanf("%d", &choice);
+        getchar(); // 吸收回车
 
-        FILE *fp = fopen("login.txt", "r");
-        if (fp == NULL) 
+        if (choice == 2)
         {
-            printf("无法打开login.txt文件，无法登录！\n");
-            return;
-        }
-        found = 0;
-        while (fscanf(fp, "%s %s", file_username, file_password) == 2) 
-        {
-            if (strcmp(username, file_username) == 0 && strcmp(password, file_password) == 0) 
+            // 注册功能
+            printf("\n=== 用户注册 ===\n");
+            printf("请输入新用户名: ");
+            scanf("%s", username);
+            printf("请输入新密码: ");
+            scanf("%s", password);
+
+            // 检查用户名是否已存在
+            FILE *fp = fopen("login.txt", "r");
+            int exists = 0;
+            if (fp != NULL)
             {
-                found = 1;
-                break;
+                while (fscanf(fp, "%s %s", file_username, file_password) == 2)
+                {
+                    if (strcmp(username, file_username) == 0)
+                    {
+                        exists = 1;
+                        break;
+                    }
+                }
+                fclose(fp);
             }
+            if (exists)
+            {
+                printf("用户名已存在，请重新注册！\n");
+                continue;
+            }
+            // 写入新用户
+            fp = fopen("login.txt", "a");
+            if (fp == NULL)
+            {
+                printf("无法打开login.txt文件，无法注册！\n");
+                continue;
+            }
+            fprintf(fp, "%s %s\n", username, password);
+            fclose(fp);
+            printf("注册成功，请登录！\n");
+            continue;
         }
-        fclose(fp);
+        else if (choice == 1)
+        {
+            // 登录功能
+            attempts = 3;
+            while (attempts > 0)
+            {
+                printf("\n用户名: ");
+                scanf("%s", username);
+                printf("密码: ");
+                scanf("%s", password);
 
-        if (found) 
-        {
-            printf("登录成功！\n");
-            displayMainMenu();
+                FILE *fp = fopen("login.txt", "r");
+                if (fp == NULL) 
+                {
+                    printf("无法打开login.txt文件，无法登录！\n");
+                    return;
+                }
+                found = 0;
+                while (fscanf(fp, "%s %s", file_username, file_password) == 2) 
+                {
+                    if (strcmp(username, file_username) == 0 && strcmp(password, file_password) == 0) 
+                    {
+                        found = 1;
+                        break;
+                    }
+                }
+                fclose(fp);
+
+                if (found) 
+                {
+                    printf("登录成功！\n");
+                    displayMainMenu();
+                    return;
+                } 
+                else 
+                {
+                    attempts--;
+                    printf("用户名或密码错误！剩余尝试次数: %d\n", attempts);
+                }
+            }
+            printf("登录尝试次数过多，程序退出。\n");
             return;
-        } else 
+        }
+        else
         {
-            attempts--;
-            printf("用户名或密码错误！剩余尝试次数: %d\n", attempts);
+            printf("无效选择，请重新输入！\n");
         }
     }
-
-    printf("登录尝试次数过多，程序退出。\n");
 }
 
 // 主菜单

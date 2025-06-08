@@ -1,5 +1,6 @@
 #include "head.h"
 
+//显示所有学生信息
 void displayAllStudentInformation() 
 {
     printf("所有学生信息：\n");
@@ -17,6 +18,7 @@ void displayAllStudentInformation()
     }
 }
 
+//添加学生信息
 void addStudentInformation() 
 {
     if (stu_num >= STUDENT_NUM) 
@@ -50,6 +52,7 @@ void addStudentInformation()
     printf("学生信息添加成功！\n");
 }
 
+//删除学生信息
 void deleteStudentInformation() 
 {
     int id;
@@ -79,6 +82,7 @@ void deleteStudentInformation()
     }
 }
 
+//修改学生信息
 void modifyStudentInformation() 
 {
     int id;
@@ -163,6 +167,7 @@ void modifyStudentInformation()
     }
 }
 
+//查找学生信息
 void searchForStudentInformation() 
 {
     int option;

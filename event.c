@@ -23,6 +23,7 @@
 //    }
 //}
 
+//显示所有运动项目信息
 void displayAllSportsEventInformation()
 {
     printf("所有运动项目信息：\n");
@@ -59,7 +60,7 @@ void displayAllSportsEventInformation()
     }
 }
  
-
+//添加运动项目信息
 void addSportsEventInformation() 
 {
     if (eve_num >= EVENT_NUM) 
@@ -105,6 +106,7 @@ void addSportsEventInformation()
     printf("项目添加成功！\n");
 }
 
+//删除运动项目信息
 void deleteSportsEventInformation() 
 {
     int id;
@@ -134,6 +136,7 @@ void deleteSportsEventInformation()
     }
 }
 
+//修改运动项目信息
 void modifySportsEventInformation() 
 {
     int id;
@@ -234,6 +237,7 @@ void modifySportsEventInformation()
     }
 }
 
+//查找运动项目信息
 void searchForSportsEventInformation() 
 {
     int option;

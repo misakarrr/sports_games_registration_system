@@ -183,8 +183,6 @@ void queryCompetitionResults()
     system("pause");
 }
 
-
-
 // 保存统计信息到文件
 void saveStatisticalInformationToAFile() 
 {

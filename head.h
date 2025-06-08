@@ -1,10 +1,11 @@
 #pragma once
-#include <stdio.h>
-#include <stdlib.h>
-#include <windows.h>
-#include <string.h>
-#include <time.h>
+#include <stdio.h> //标准输入输出头文件
+#include <stdlib.h> //标准库头文件
+#include <windows.h> //Windows API头文件
+#include <string.h> //字符串处理头文件
+#include <time.h> //时间处理头文件
 
+//运动项目数量、学生数量和报名数量宏定义
 #define EVENT_NUM 50 //运动项目数量宏定义
 #define STUDENT_NUM 500 //学生数量宏定义
 #define REGISTRATION_NUM 500 //报名数量宏定义
@@ -96,7 +97,7 @@ void saveStatisticalInformationToAFile();//保存统计信息到文件
 
 //辅助功能
 void login();//登录系统
-void SetPosition(int x, int y);//光标定位
+//void SetPosition(int x, int y);//光标定位
 int get_display_width(const char* s);// 获取字符串的显示宽度（考虑UTF-8中文字符）
 void print_align(const char* s, int total_width);// 打印对齐字符串
 
